@@ -9,6 +9,16 @@ class Contact:
         self.bday = bday
 
 
+    def __repr__ (self):
+        return """
+        Contact
+        Name = {}
+        phone = {}
+        email = {}
+        website = {}
+        bday = {}
+        """.format(self.cname,self.phoneno,self.email,self.website,self.bday)
+
 cname = input('Name: ')
 phoneno = input('Phone: ')
 email = input('Email: ')
@@ -16,11 +26,7 @@ website = input('Website: ')
 bday = input("bday: ")
 
 newContact = Contact(cname,phoneno,email,website,bday)
-print(newContact.cname)
-print(newContact.phoneno)
-print(newContact.email)
-print(newContact.website)
-print(newContact.bday)
+print(newContact)
 
 
 
