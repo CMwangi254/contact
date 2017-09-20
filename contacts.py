@@ -1,4 +1,7 @@
-class Contact:
+#import csv file
+import csv
+
+class Contact():
     
     def __init__(self,fname="",lname="",phone="",email=""):
         
@@ -9,15 +12,23 @@ class Contact:
 
     def __repr__ (self):
         return """
-        Name = {} {}
-        phone = {}
-        email = {}
-        """.format(self.fname,self.lname,self.phone,self.email)
+    Name = {} {}
+    phone = {}
+    email = {}
+    """.format(self.fname, self.lname, self.phone, self.email)
 
 class ContactManager:
     
     def __init__(self):
         self.addressBook = []
+
+        try:
+            with open("contacts.csv", "x") as csvInit:
+                cvsWriter = cvs.writer(csvInit)
+                headers=['First Name', 'last Name', 'Phone Number', 'Email']
+                csvWriter.writerow(headers)
+        except:
+            pass
     
     def addContact(self, contact):
         self.addressBook.append(contact)
@@ -48,17 +59,32 @@ class ContactManager:
         else:
             print("no contacts in addressbook")
 
+    def WriteContacttoCsv(self, contact):
+        
+        with open("contacts.csv", "a+") as csvFile:
+            csvWriter = csv.writer(csvFile)
+            dataRow = [contact.fname, contact.lname, contact.phone, contact.email]
+            csvWriter.writerow(dataRow)
+            print("contact exported to csv")
+
 #getting user input
-fname = input("input the first name: ")
-lname = input("input the last name: ")
+first_name = input("input the first name: ")
+last_name = input("input the last name: ")
 phone_number = input("input the phone number: ")
 email = input("input the email: ")
 
 #initializing the contactmanager
 phoneBook = ContactManager()
-#adding a contact
-phoneBook.addContact(Contact(fname=fname, lname=lname, phone=phone_number, email=email))
 
+# create a contact object
+contactObject = Contact(fname=first_name, lname=last_name, phone=phone_number, email=email)
+# Add a contact
+phoneBook.addContact(contactObject)
+
+# export the contacts to the csv
+phoneBook.WriteContacttoCsv(contactObject)
+
+# list the contacts
 phoneBook.listAllContacts()
 
 #searching contact details of a person
@@ -76,6 +102,10 @@ search = input("Input the first name of the contact you want to delete: ")
 phoneBook.deleteContactByFirstName(search)
 
 phoneBook.listAllContacts()
+
+
+
+
 
 
 
