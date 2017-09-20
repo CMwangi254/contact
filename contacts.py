@@ -17,6 +17,7 @@ class Contact():
     email = {}
     """.format(self.fname, self.lname, self.phone, self.email)
 
+    
 class ContactManager:
     
     def __init__(self):
